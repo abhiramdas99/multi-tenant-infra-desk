@@ -1,0 +1,40 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Global search</h1>
+
+<form method="get" action="{% url 'global_search' %}" style="margin-bottom: 20px;">
+  <input type="text" name="q" value="{{ query }}" style="padding:4px 8px; width: 320px;">
+  <button type="submit" class="default">Search</button>
+</form>
+
+{% if query %}
+  <p><strong>{{ results|length }}</strong> result(s) for <code>{{ query }}</code></p>
+
+  {% if results %}
+    <table class="listing">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Object</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for r in results %}
+        <tr>
+          <td>{{ r.model }}</td>
+          <td>
+            <a href="{{ r.admin_url }}">{{ r.label }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No matches found.</p>
+  {% endif %}
+{% else %}
+  <p>Type something like <code>server down</code>, <code>SSL</code>, client name, IP, etc.</p>
+{% endif %}
+
+{% endblock %}

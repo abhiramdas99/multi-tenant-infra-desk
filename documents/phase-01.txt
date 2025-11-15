@@ -1,0 +1,162 @@
+✅ MASTER COMPRESSED PROMPT (SAVE THIS FOR FUTURE CHATS)
+
+Copy + Save this
+
+📌 MY PROJECT CONTEXT — “MULTI TENANT INFRA DESK” (DJANGO + ADMIN CUSTOMIZATION)
+
+I’m building a Django-based admin system called Multi-Tenant Infra Desk.
+
+It is used for managing multiple IT consulting tenants → their clients → projects → environments → servers → resources → issues → infra activities.
+
+📌 MODELS THAT ARE ALREADY CREATED
+
+Partner (top entity: Kamsoft, Kilowott, etc.)
+
+Client (each partner has multiple clients)
+
+Project (each client has multiple projects)
+
+Environment (dev/staging/uat/prod etc.)
+
+Server (linked to environment)
+
+Resource (DB credentials, S3 bucket, API keys, etc.)
+
+Issue (daily issues: title, desc, status, priority…)
+
+InfraActivity (activity log: what task was done, hours used etc.)
+
+Admin is fully working with these models.
+
+📌 IMPORTANT: CUSTOM ADMIN HEADER UI CREATED
+
+The default Django admin header is replaced with a custom professional header:
+
+Left:
+
+“Infra Desk Administration”
+
+Right side (this order):
+
+Search box (global search across all models)
+
+Username (admin)
+
+Avatar circle (first letter of username)
+
+Avatar dropdown showing:
+
+Change password
+
+Log out (POST form, working correctly)
+
+We also removed:
+
+“WELCOME”
+
+“view site”
+
+all default Django admin texts
+
+CSS is fully customized.
+
+📌 GLOBAL SEARCH SYSTEM ADDED
+
+There is a global search bar that searches across ALL models:
+
+Partner
+
+Client
+
+Project
+
+Environment
+
+Server
+
+Resource
+
+Issue
+
+InfraActivity
+
+Django Users
+
+It shows results in a table:
+
+model type
+
+object label
+
+link to that admin change form
+
+Search page URL:
+/admin/global-search/
+
+Template: templates/admin/global_search.html
+
+📌 URL STRUCTURE
+
+/ → loads home.html
+/admin/ → admin dashboard
+/admin/global-search/ → global search
+Custom templates path enabled in settings.
+
+📌 LOGOUT ISSUE FIXED
+
+Django requires POST for logout.
+So dropdown uses:
+
+<form method="post" action="{% url 'admin:logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="logout-btn">Log out</button>
+</form>
+
+
+This works correctly.
+
+📌 CUSTOM ADMIN THEME DETAILS
+
+Search box uses custom styling
+
+Avatar dropdown has solid white background (not transparent)
+
+Hover effect added
+
+Clean spacing
+
+No inline styling except where required
+
+Menu works with JS toggle
+
+“WELCOME” removed
+
+“view site” removed
+
+Search box appears before username
+
+Dark teal admin bar remains default Django color
+
+📌 WHAT I WANT IN FUTURE DISCUSSIONS
+
+Whenever I start a new chat, understand that:
+
+⚡ I am building
+A full Multi-Tenant Infra Management System
+inside Django Admin, highly customized.
+
+You should:
+
+Continue UI improvements in admin
+
+Help build dashboards, charts, permissions, audit logs, notifications
+
+Extend models where required
+
+Improve UX for real-world infra management
+
+Avoid re-explaining basics — continue from this personalized setup
+
+Keep the admin sleek, professional, SaaS-like
+
+END OF MASTER CONTEXT PROMPT

@@ -1,0 +1,60 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual environment ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Django stuff ---
+*.log
+*.pot
+*.pyc
+db.sqlite3
+db.sqlite3-journal
+
+# Django media/static (optional)
+media/
+staticfiles/
+static/
+
+# --- IDE / Editor files ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Environment / secret files ---
+.env
+.env.local
+*.env
+secrets.json
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Python packaging ---
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# --- Migrations cache (NOT the migrations folders themselves!) ---
+# Keep migrations folder, but ignore compiled files inside it.
+**/migrations/*.pyc
+
+# --- Node / Frontend (if any) ---
+node_modules/
+npm-debug.log
+.yarn/
+.yarn-cache/
+.pnp.cjs
+.pnp.loader.mjs
+
+# --- Backup files ---
+*.bak
+*.tmp

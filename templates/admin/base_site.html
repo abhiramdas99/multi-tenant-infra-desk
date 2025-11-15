@@ -1,0 +1,198 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Infra Desk Administration{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  #infra-userbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
+  /* 🔹 Export button */
+  .infra-export-btn {
+    background: #ffffff;
+    color: #0b7285;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+  .infra-export-btn:hover {
+    background: #e3f2fd;
+  }
+
+  /* Search box */
+  #global-search-form input[type="text"] {
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccd;
+    min-width: 220px;
+    font-size: 14px;
+    outline: none;
+  }
+  #global-search-form input[type="text"]:focus {
+    border-color: #0b7285;
+  }
+
+  /* "admin" username */
+  .infra-user {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  /* Avatar Button */
+  .infra-avatar-wrap {
+    position: relative;
+  }
+  .infra-avatar-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #0b7285;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.9);
+  }
+
+  /* Dropdown */
+  .infra-avatar-menu {
+    position: absolute;
+    top: 34px;
+    right: 0;
+    min-width: 170px;
+    background: #417893; /* cleaner + professional look */
+    border-radius: 8px;
+    padding: 8px 0;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.25);
+    display: none;
+    z-index: 9999;
+    border: 1px solid #ddd; /* optional border */
+  }
+  .infra-avatar-menu a {
+    padding: 10px 14px;
+    display: block;
+    font-size: 14px;
+    color: #222;
+    text-decoration: none;
+  }
+  .infra-avatar-menu a:hover {
+    background: #f1f1f4;
+  }
+
+  .logout-btn {
+    background: none;
+    border: none;
+    padding: 10px 14px;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    color: #222;
+    border-radius: 0;
+  }
+
+  /* Hover effect */
+  .logout-btn:hover {
+    background: #f1f1f4;   /* light hover */
+  }
+
+  /* Optional: smoother UI */
+  .logout-btn:active {
+    background: #e4e4e8;
+  }
+
+  /* Export button */
+#infra-userbar .infra-export-btn {
+    background: transparent;
+    color: #fff;  /* text stays white */
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    border: 1px solid rgba(255,255,255,0.85);
+    font-weight: 500;
+}
+#infra-userbar .infra-export-btn:hover {
+    background: rgba(255,255,255,0.15);
+}
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+  <a href="{% url 'admin:index' %}">Infra Desk Administration</a>
+</h1>
+{% endblock %}
+
+{% block usertools %}
+<div id="infra-userbar">
+
+  <!-- 🔹 Export button (left) -->
+  <a href="{% url 'export_infra_data' %}" class="infra-export-btn">
+    Export infra data
+  </a>
+
+  <!-- 1️⃣ Search box FIRST (before admin) -->
+  <form id="global-search-form"
+        action="{% url 'global_search' %}"
+        method="get">
+    <input type="text"
+           name="q"
+           placeholder="Search infra…"
+           value="{{ request.GET.q|default_if_none:'' }}">
+  </form>
+
+  <!-- 2️⃣ admin username -->
+  <span class="infra-user">{{ request.user.get_username }}</span>
+
+  <!-- 3️⃣ Avatar dropdown -->
+  <div class="infra-avatar-wrap">
+    <div class="infra-avatar-circle" id="infra-avatar-btn">
+      {{ request.user.get_username|slice:":1"|upper }}
+    </div>
+    <div class="infra-avatar-menu" id="infra-avatar-menu">
+      <a href="{% url 'admin:password_change' %}">Change password</a>
+
+      <form id="infra-logout-form"
+            method="post"
+            action="{% url 'admin:logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">
+          Log out
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    const btn = document.getElementById("infra-avatar-btn");
+    const menu = document.getElementById("infra-avatar-menu");
+
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", function () {
+      menu.style.display = "none";
+    });
+  })();
+</script>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

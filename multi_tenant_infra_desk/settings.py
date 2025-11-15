@@ -10,12 +10,15 @@ For the full list of settings and their values, see:
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
-
 from pathlib import Path
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 DB_ENGINE = os.getenv("DB_ENGINE", "sqlite")
 DEBUG = os.getenv("DEBUG", "1") == "1"
-SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-change-me")
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-5br8l_4uf4*tvz5k6t3r=hax3=hnin965#uc6isr&jea0p_dxa")
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
 
@@ -23,8 +26,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://infra-desk.abhiramdas.site"
 ]
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -38,7 +40,12 @@ DEBUG = True
 
 # For local development you can keep this like this.
 # For real deployment, set this to your domain(s).
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+
+# Allowed hosts from env, with safe default for server
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "infra-desk.abhiramdas.site,127.0.0.1,localhost",
+).split(",")
 
 
 # Application definition

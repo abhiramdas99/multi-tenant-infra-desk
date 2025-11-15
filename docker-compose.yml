@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  infra_desk_web:
+    build: .                          # Dockerfile in this same folder
+    container_name: infra_desk_web
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code                       # mount source for fast dev
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env                          # env file for Docker / server
+    networks:
+      - mysql-phpmyadmin_default      # talk to existing MySQL container
+
+networks:
+  mysql-phpmyadmin_default:
+    external: true                    # reuse existing network (where mysql_container lives)
